@@ -17,3 +17,4 @@ To start the game, each player choses a color and places a settlement and a road
 
 ## Links to Google docs
 Project Meetings: https://docs.google.com/document/d/1CAWjP0Epc4pQKluuDd7rQgvlfVQrTqoja1wOdxx9Ic8
+Analysis Report 1st Iteration: https://docs.google.com/document/d/1Sy7WEmmYqgLAZg5PkC1J7GuC7s1idzA_7fJ-C8JnB_g/edit?usp=sharing
