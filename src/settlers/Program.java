@@ -12,6 +12,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -21,29 +23,29 @@ public class Program extends Application {
 	static double HEIGHT;
 	static double WIDTH;
 	static String LANGUAGE;
+	static String MODE = "normal";
 	
 	@Override
 	public void start(Stage stage) {
 		try {
+			Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+			HEIGHT = primaryScreenBounds.getMaxY();
+			WIDTH = primaryScreenBounds.getMaxX();
+			
+			
 			//Pane root = (Pane) FXMLLoader.load(getClass().getResource("Settlers.fxml"));
 			stage.setFullScreen(true);
-			
 			Group root = new Group();
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("settlers.css").toExternalForm());
 			stage.setScene(scene);
 			ViewControllerController viewControllerController = new ViewControllerController(scene);
-			HEIGHT = scene.getHeight();
-			WIDTH = scene.getWidth();
 			viewControllerController.goToMainMenu();
-		
-			HEIGHT = scene.getHeight();
-			WIDTH = scene.getWidth();
 			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		//music();
+		music();
 		
 	}
 	

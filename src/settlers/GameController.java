@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -594,19 +595,35 @@ public class GameController extends ModelAccessibleViewController {
 			
 			all.getChildren().add(playerPanes[i]);
 			
+			VBox paneAll = (VBox) playerPanes[i].getChildren().get(0);
+			HBox other = (HBox) paneAll.getChildren().get(0);
+			Pane changables = (Pane) paneAll.getChildren().get(1);
+			Pane changableButtons = (Pane) paneAll.getChildren().get(3);
+			
+			String name = playerButtons[i].getName();
+			ImageView icon = playerButtons[i].getIcon();
+			Color color = playerButtons[i].getColor();
+			ImageView newIcon = new ImageView(icon.getImage());
+			PlayerButton playerView = new PlayerButton(newIcon, name, color, true);
+			playerView.setTranslateX(20);
+			playerView.setTranslateY(20);
+			other.getChildren().add(playerView);
+			
+			VBox totalCard = (VBox) changables.getChildren().get(1);
+			Label totalLabel = (Label) totalCard.getChildren().get(0);
+			totalLabel.setText(totalLabel.getText() + name);
+			
+			SettlersButton tradeButton = (SettlersButton) changableButtons.getChildren().get(1);
+			tradeButton.setText(tradeButton.getText() + name);
 			
 			playerButtons[j].setOnMouseClicked( new EventHandler<MouseEvent>() {
 				@Override
 				
 				public void handle(MouseEvent event) {
-					//HBox cards = new HBox();
 					if (playerInTurn == j + 1) {
-						playerPanes[j].setContentVisible(true);
-						//ImageView sheepCard = new ImageView(new Image("sheep_card.jpg"));
 						
-						//playerPanes[j].addResourceCard(sheepCard, "Wool");
+						playerPanes[j].setContentVisible(true);
 					}
-					//cards.add()
 					backButton.setVisible(false);
 					playerPanes[j].setVisible(true);				
 					everything.setDisable(true);	
@@ -622,6 +639,10 @@ public class GameController extends ModelAccessibleViewController {
 	
 	public void settlementSetUp() {
 
+		SettlersButton confirmButton = new SettlersButton("Confirm Selection", 300, "-fx-background-color: rgba(225, 225, 225, 0.55);", "-fx-background-color: rgba(225, 225, 225, 0.8);");
+	    confirmButton.setTranslateX(568);
+	    confirmButton.setTranslateY(748);
+	    view.getChildren().add(confirmButton);
 		for (int i = 0 ; i < 54 ; i++) {
 			final int j = i;
 			CornerButton firstButton = cornerButtons[j];
@@ -650,9 +671,7 @@ public class GameController extends ModelAccessibleViewController {
 			        	recursiveSettlementHelper(firstButton, secondButton);
 			        	
 			        }
-			        SettlersButton confirmButton = new SettlersButton("Confirm Selection", 300, "-fx-background-color: rgba(225, 225, 225, 0.55);", "-fx-background-color: rgba(225, 225, 225, 0.8);");
-			        confirmButton.setTranslateX(568);
-			        confirmButton.setTranslateY(748);
+			       
 			        confirmButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 						@Override
 						public void handle(MouseEvent event) {
@@ -675,12 +694,11 @@ public class GameController extends ModelAccessibleViewController {
 										
 									}
 								});
-								
 							}
-							confirmButton.setVisible(false);
+							view.getChildren().remove(confirmButton);
 						}
 					});
-					view.getChildren().add(confirmButton);
+					
 				}
 			});
 		}
@@ -870,5 +888,8 @@ public class GameController extends ModelAccessibleViewController {
 		}
 	}
 
-
+	
+	
+	
+	
 }
