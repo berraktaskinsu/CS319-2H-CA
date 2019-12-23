@@ -8,12 +8,8 @@ import javafx.scene.text.Font;
 public class SettlersButton extends Button{
 	
 	public SettlersButton(String text, int width, String normal, String onMouse) {
-		this(text, width, 50, normal, onMouse);
-	}
-	
-	public SettlersButton(String text, int width, int height, String normal, String onMouse) {
 		super(text);
-		setPrefSize(width, height);
+		setPrefSize(width, 50);
 		setStyle(normal);
 		setFont(Font.font("Cambria", 25));
 		
@@ -31,16 +27,6 @@ public class SettlersButton extends Button{
 				setStyle(normal);
 			}
 		});
-	}
-	
-	public SettlersButton(double x, double y, String text, int width, String normal, String onMouse) {
-		this(x, y, text, width, 60, normal, onMouse);
-	}
-	
-	public SettlersButton(double x, double y, String text, int width, int height, String normal, String onMouse) {
-		this(text, width, height, normal, onMouse);
-		setTranslateX(x);
-		setTranslateY(y);
 	}
 }
 

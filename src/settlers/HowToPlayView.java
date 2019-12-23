@@ -49,7 +49,8 @@ public class HowToPlayView extends View{
 
 		
 		ScrollPane pane = new ScrollPane();
-		pane.getStyleClass().add("scroll-pane");
+		//pane.getStyleClass().add("scroll-pane");
+		pane.getStylesheets().add("settlers.css");
 		
 		pane.setFocusTraversable(false);
 		pane.setPrefSize(800, Program.HEIGHT);
@@ -63,6 +64,10 @@ public class HowToPlayView extends View{
 		everything.getChildren().addAll(backButton, pane);
 
 		background = new Image("img3.jpg");
+		if (Program.MODE == "pirates") {
+			background = new Image("pirate2.jpg");
+		}
+		
 		mv = new ImageView(background);
 		mv.setFitWidth(Program.WIDTH);
 		mv.setFitHeight(Program.HEIGHT);

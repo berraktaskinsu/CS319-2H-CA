@@ -1,5 +1,16 @@
 package settlers;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import javafx.event.*;
 import javafx.geometry.*;
 import javafx.scene.*;
@@ -32,16 +43,17 @@ public class SettingsView extends View{
 	VBox selections;
 	Image background;
 	ImageView mv;
+	Label modeLabel;
 	
 	
 	public SettingsView(SettingsController settingsController) {
 		
 		super(settingsController);
 		
-		String lang1, lang2, lang3, lang4, langLabel, colorLabel, volumeLabel, backLabel;
+		//String lang1, lang2, lang3, lang4, langLabel, volumeLabel, backLabel;
 		
 
-		if (Program.LANGUAGE == "English") {
+		/*if (Program.LANGUAGE == "English") {
 			lang1 = "English";
 			lang2 = "Turkish";
 			lang3 = "Azerbaijani";
@@ -144,25 +156,65 @@ public class SettingsView extends View{
 		selection1 = new HBox();
 		selection1.getChildren().addAll(language, menuButton);
 		selection1.setSpacing(20);
+		*/
+		//checkBox = new CheckBox();
+		//SettlersButton prevButton = new SettlersButton("<", 20, "-fx-background-color: rgba(33, 33, 33, 0);", "-fx-background-color: rgba(33, 33, 33, 0)");
+		//SettlersButton nextButton = new SettlersButton(">", 20, "-fx-background-color: rgba(33, 33, 33, 0);", "-fx-background-color: rgba(33, 33, 33, 0)");
+		background = new Image("img2.jpg");
+		if (Program.MODE == "pirates") {
+			background = new Image("pirate1.jpg");
+		}
 		
-		checkBox = new CheckBox();
-		colorBlindnessMode = new Label(colorLabel);
-		colorBlindnessMode.setFont(Font.font("Cambria",FontWeight.BOLD, FontPosture.REGULAR, 30));
-		colorBlindnessMode.setTextFill(Color.WHITE);
+		Button prevButton = new Button();
+		prevButton.getStyleClass().add("previous-button");
+		prevButton.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), new Insets(0,0,0,0))));
+		
+		Button nextButton = new Button();
+		nextButton.getStyleClass().add("next-button");
+		nextButton.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), new Insets(0,0,0,0))));
+		
+		modeLabel = new Label("Normal Game");
+		modeLabel.setFont(Font.font("Cambria",FontWeight.BOLD, FontPosture.REGULAR, 30));
+		modeLabel.setTextFill(Color.WHITE);
 		selection2 = new HBox();
-		selection2.getChildren().addAll(colorBlindnessMode, checkBox);
-		selection2.setSpacing(20);
+		selection2.getChildren().addAll(prevButton, modeLabel, nextButton);
+		selection2.setSpacing(50);
 		
 		slider = new Slider(0, 100, 0);
-		volume = new Label(volumeLabel);
+		volume = new Label("Volume:");
 		volume.setFont(Font.font("Cambria",FontWeight.BOLD, FontPosture.REGULAR, 30));
 		volume.setTextFill(Color.WHITE);
 		selection3 = new HBox();
 		selection3.getChildren().addAll(volume, slider);
 		selection3.setSpacing(20);
 		
+		
+		prevButton.setVisible(false);
+		nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				prevButton.setVisible(true);
+				nextButton.setVisible(false);
+				Program.MODE = "pirates";
+				modeLabel.setText("Pirates of Catan");
+				mv.setImage(new Image("pirate1.jpg"));
+			}
+		});
+		
+		prevButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				prevButton.setVisible(false);
+				nextButton.setVisible(true);
+				Program.MODE = "normal";
+				modeLabel.setText("Normal Game");
+				mv.setImage(new Image("img2.jpg"));
+				
+			}
+		});
+		
 		selections = new VBox();
-		selections.getChildren().addAll(selection1, selection2, selection3);
+		selections.getChildren().addAll(selection2, selection3);
 		selections.setSpacing(100);
 		selections.setPadding(new Insets(100, 0, 0, 100));
 		
@@ -185,7 +237,7 @@ public class SettingsView extends View{
 		everything = new HBox();
 		everything.getChildren().addAll(backButton, pane);
 		
-		background = new Image("img2.jpg");
+		
 		mv = new ImageView(background);
 		mv.setFitWidth(Program.WIDTH);
 		mv.setFitHeight(Program.HEIGHT);

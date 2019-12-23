@@ -44,3 +44,11 @@
     -fx-border-radius: 18 18 18 18;
     -fx-alignment: center;
 }
+
+.next-button {
+	-fx-shape: "M 100 250 Q 200 350 200 350 Q 100 450 100 450 Q 100 450 150 350 Z";
+}
+
+.previous-button {
+	-fx-shape: "M 150 250 Q 50 350 50 350 Q 150 450 150 450 Q 150 450 100 350 Z";
+}

@@ -22,10 +22,21 @@ public class MainMenuView extends View{
 		
 		super(mainMenuController);
 		
+		String tit = "Settlers of Catan";
+		background = new Image("img1.png");
 		howToPlay = new SettlersButton("How To Play?", 300, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
-		settings = new SettlersButton("Setings", 300, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
+		settings = new SettlersButton("Settings", 300, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
 		newGame = new SettlersButton("New Game", 300, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
 		quitGame = new SettlersButton("Quit Game", 300, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
+		if (Program.MODE == "pirates") {
+			howToPlay = new SettlersButton("How To Play?", 300, "-fx-background-color: rgba(255, 224, 46, 1);", "-fx-background-color: rgba(255, 224, 46, 0.5)");
+			settings = new SettlersButton("Settings", 300, "-fx-background-color: rgba(255, 224, 46, 1);", "-fx-background-color: rgba(255, 224, 46, 0.5)");
+			newGame = new SettlersButton("New Game", 300, "-fx-background-color: rgba(255, 224, 46, 1);", "-fx-background-color: rgba(255, 224, 46, 0.5)");
+			quitGame = new SettlersButton("Quit Game", 300, "-fx-background-color: rgba(255, 224, 46, 1);", "-fx-background-color: rgba(255, 224, 46, 0.5)");
+			background = new Image("pirate3.jpg");
+			tit = "Pirates of Catan";
+		}
+		
 		howToPlay.setTextFill(Color.WHITE);
 		settings.setTextFill(Color.WHITE);
 		newGame.setTextFill(Color.WHITE);
@@ -70,7 +81,7 @@ public class MainMenuView extends View{
 		buttons.getChildren().addAll(newGame, settings, howToPlay, quitGame);
 		buttons.setPadding(new Insets(120, 0, 0, 20));
 		
-		title = new Text("Settlers of Catan");
+		title = new Text(tit);
 		title.setFill(Color.DARKRED);
 		title.setFont(Font.font("Times New Roman",FontWeight.BOLD, FontPosture.REGULAR, 150));
 		
@@ -78,7 +89,9 @@ public class MainMenuView extends View{
 		everything.getChildren().addAll(title, buttons);
 		everything.setPadding(new Insets(100, 0, 0, 50));
 		
-		background = new Image("img1.png");
+		
+
+		
 		mv = new ImageView(background);
 		mv.setFitWidth(Program.WIDTH);
 		mv.setFitHeight(Program.HEIGHT);

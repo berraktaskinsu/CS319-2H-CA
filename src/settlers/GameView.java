@@ -56,6 +56,12 @@ public class GameView extends View{
 	
 	private void initialize() {
 		
+		
+		background = new Image("img6.jpg");
+		if (Program.MODE == "pirates") {
+			background = new Image("pirate5.jpg");
+		}
+		
 		backButton = new BackButton();
 		backButton.setOnMouseClicked( new EventHandler<MouseEvent>() {
 			@Override
@@ -102,7 +108,7 @@ public class GameView extends View{
 		all = new Group();
 		all.getChildren().addAll(backButton, everything);
 		
-		background = new Image("img6.jpg");
+		
 		mv = new ImageView(background);
 		mv.setFitWidth(Program.WIDTH);
 		mv.setFitHeight(Program.WIDTH);
@@ -413,15 +419,15 @@ public class GameView extends View{
 		
 		
 		if (players.length == 3) {
-			PlayerButton player1Button = new PlayerButton(players[0].getIcon(), players[0].getName(), players[0].getColor());
+			PlayerButton player1Button = new PlayerButton(players[0].getIcon(), players[0].getName(), players[0].getColor(), false);
 			playerStatus[0].setCenterX(90);
 			playerStatus[0].setCenterY(170);
 			
-			PlayerButton player2Button = new PlayerButton(players[1].getIcon(), players[1].getName(), players[1].getColor());
+			PlayerButton player2Button = new PlayerButton(players[1].getIcon(), players[1].getName(), players[1].getColor(), false);
 			playerStatus[1].setCenterX(1355);
 			playerStatus[1].setCenterY(170);
 			
-			PlayerButton player3Button = new PlayerButton(players[2].getIcon(), players[2].getName(), players[2].getColor());
+			PlayerButton player3Button = new PlayerButton(players[2].getIcon(), players[2].getName(), players[2].getColor(), false);
 			playerStatus[2].setCenterX(1355);
 			playerStatus[2].setCenterY(770);
 			
@@ -437,13 +443,13 @@ public class GameView extends View{
 			
 		} else if (players.length == 4){
 			
-			PlayerButton player1Button = new PlayerButton(players[0].getIcon(), players[0].getName(), players[0].getColor());
+			PlayerButton player1Button = new PlayerButton(players[0].getIcon(), players[0].getName(), players[0].getColor(), false);
 			player1Button.setPlayerId(1);
 			
 			playerStatus[0].setCenterX(90);
 			playerStatus[0].setCenterY(170);
 		
-	        player1Button.setOnMouseClicked( new EventHandler<MouseEvent>() {
+	        /*player1Button.setOnMouseClicked( new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
 					
@@ -473,17 +479,17 @@ public class GameView extends View{
 					everything.setDisable(true);	
 				}
 				
-			});
+			});*/
 			
-			PlayerButton player2Button = new PlayerButton(players[1].getIcon(), players[1].getName(), players[1].getColor());
+			PlayerButton player2Button = new PlayerButton(players[1].getIcon(), players[1].getName(), players[1].getColor(), false);
 			playerStatus[1].setCenterX(1355);
 			playerStatus[1].setCenterY(170);
 			
-			PlayerButton player3Button = new PlayerButton(players[2].getIcon(), players[2].getName(), players[2].getColor());
+			PlayerButton player3Button = new PlayerButton(players[2].getIcon(), players[2].getName(), players[2].getColor(), false);
 			playerStatus[2].setCenterX(1355);
 			playerStatus[2].setCenterY(770);
 	
-			PlayerButton player4Button = new PlayerButton(players[3].getIcon(), players[3].getName(), players[3].getColor());
+			PlayerButton player4Button = new PlayerButton(players[3].getIcon(), players[3].getName(), players[3].getColor(), false);
 			playerStatus[3].setCenterX(90);
 			playerStatus[3].setCenterY(770);
 		

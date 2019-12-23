@@ -48,6 +48,19 @@ public class NewGameView extends View{
 		//this.newGameController = newGameController;
 		numberOfPlayers = 0;
 		
+		background = new Image("img4.jpg");
+		AddPlayer = new SettlersButton("Add Player", 200, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
+		AddBot = new SettlersButton("Add Bot", 200, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
+		StartGame = new SettlersButton("Roll Dice", 300, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
+		
+		if (Program.MODE == "pirates") {
+			background = new Image("pirate4.jpg");
+			AddPlayer = new SettlersButton("Add Player", 200, "-fx-background-color: rgba(255, 224, 46, 1);", "-fx-background-color: rgba(255, 224, 46, 0.5)");
+			AddBot = new SettlersButton("Add Bot", 200, "-fx-background-color: rgba(255, 224, 46, 1);", "-fx-background-color: rgba(255, 224, 46, 0.5)");
+			StartGame = new SettlersButton("Roll Dice", 300, "-fx-background-color: rgba(255, 224, 46, 1);", "-fx-background-color: rgba(255, 224, 46, 0.5)");
+			
+		}
+		
 		backButton = new BackButton();
 		backButton.setOnMouseClicked( new EventHandler<MouseEvent>() {
 			@Override
@@ -57,7 +70,6 @@ public class NewGameView extends View{
 			
 		});
 		
-		AddPlayer = new SettlersButton("Add Player", 200, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
 		AddPlayer.setTextFill(Color.WHITE);
 		AddPlayer.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -151,7 +163,6 @@ public class NewGameView extends View{
 			}
 		});
 		
-		AddBot = new SettlersButton("Add Bot", 200, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
 		AddBot.setTextFill(Color.WHITE);
 		AddBot.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -204,7 +215,7 @@ public class NewGameView extends View{
 			}
 		});
 		
-		StartGame = new SettlersButton(60, 0, "Roll Dice", 300, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
+		StartGame.setTranslateX(60);
 		StartGame.setVisible(false);
 		StartGame.setTextFill(Color.WHITE);
 		StartGame.setOnMouseClicked( new EventHandler<MouseEvent>() {
@@ -232,11 +243,23 @@ public class NewGameView extends View{
 				VBox playerTurns = new VBox();
 				playerTurns.setPrefSize(400, 300);
 				playerTurns.setSpacing(20);
-				SettlersButton continueButton = new SettlersButton(50, 0, "Continue", 300, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
-
+				
+				SettlersButton continueButton;
+				if (Program.MODE == "pirates") {
+					continueButton = new SettlersButton("Continue", 300, "-fx-background-color: rgba(255, 224, 46, 1);", "-fx-background-color: rgba(255, 224, 46, 0.5)");
+				} else {
+					continueButton = new SettlersButton("Continue", 300, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
+				}
+				continueButton.setTranslateX(40);
 				continueButton.setVisible(false);
 				
-				SettlersButton rollDice = new SettlersButton(80, 0, "Roll Dice", 180, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
+				SettlersButton rollDice;
+				if (Program.MODE == "pirates") {
+					rollDice = new SettlersButton("Roll Dice", 180, "-fx-background-color: rgba(255, 224, 46, 1);", "-fx-background-color: rgba(255, 224, 46, 0.5)");
+				} else {
+					rollDice = new SettlersButton("Roll Dice", 180, "-fx-background-color: rgba(139, 0, 0, 0.55);", "-fx-background-color: rgba(42, 62, 30, 0.55)");
+				}
+				rollDice.setTranslateX(60);
 				rollDice.setTextFill(Color.WHITE);	
 				
 				rollDice.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -428,7 +451,8 @@ public class NewGameView extends View{
 		everything = new HBox();
 		everything.getChildren().addAll(backButton, pane);
 		
-		background = new Image("img4.jpg");
+
+		
 		mv = new ImageView(background);
 		mv.setFitWidth(Program.WIDTH);
 		mv.setFitHeight(Program.HEIGHT);

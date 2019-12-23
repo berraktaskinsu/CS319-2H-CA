@@ -9,14 +9,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
 public class PlayerPane extends Pane {
 	
-	private SettlersButton closeButton, endTurnButton, settlementButton, roadButton, cityButton;
+	private SettlersButton closeButton, endTurnButton, settlementButton, roadButton, cityButton, tradeButton;
 	private int playerId;
 	private VBox buttonsV;
 	private VBox settlement, road, city;
@@ -37,19 +40,19 @@ public class PlayerPane extends Pane {
 		closeButton.setTranslateX(20);
 		closeButton.setTranslateY(20);
 		
-		//closeButton.setPrefSize(120, 40);
-		//closeButton.setMouseTransparent(false);
-		
-		
 		endTurnButton = new SettlersButton("End Turn ", 300, "-fx-background-color: rgba(225, 225, 225, 0.55);", "-fx-background-color: rgba(225, 225, 225, 0.8);");
-		endTurnButton.setTranslateX(175);
+		endTurnButton.setTranslateX(155);
 		endTurnButton.setPrefSize(300, 30);
+		
 		settlementButton = new SettlersButton("Place Settlement", 220, "-fx-background-color: rgba(225, 225, 225, 0.55);", "-fx-background-color: rgba(225, 225, 225, 0.8);");
 		settlementButton.setPrefSize(220, 30);
+		
 		roadButton = new SettlersButton("Place Road", 180, "-fx-background-color: rgba(225, 225, 225, 0.55);", "-fx-background-color: rgba(225, 225, 225, 0.8);");
 		roadButton.setPrefSize(180, 30);
+		
 		cityButton = new SettlersButton("Place City", 180, "-fx-background-color: rgba(225, 225, 225, 0.55);", "-fx-background-color: rgba(225, 225, 225, 0.8);");
 		cityButton.setPrefSize(180, 30);
+		
 		HBox buttons = new HBox();
 		buttons.setSpacing(30);
 		buttons.setTranslateX(0);
@@ -59,21 +62,44 @@ public class PlayerPane extends Pane {
 		buttonsV = new VBox();
 		buttonsV.setSpacing(20);
 		buttonsV.setTranslateX(20);
-		//buttonsV.setTranslateY(700);
 		buttonsV.getChildren().addAll(buttons, endTurnButton);
-		//buttonsV.setVisible(false);
 		
 		
-		ImageView settlementView = new ImageView(new Image("settlement_view.jpeg"));
+		ImageView settlementView = new ImageView(new Image("settlement_view.png"));
 		settlementView.setFitWidth(65);
 		settlementView.setFitHeight(65);
 		Label settlementLabel = new Label("settlement");
 		settlementLabel.setFont(new Font("Cambria", 20));
 		settlementLabel.setTextFill(Color.WHITE);
-		Label settlementNumber = new Label("");
+		
+		Circle settlementCircle = new Circle();
+		settlementCircle.setRadius(20);
+		settlementCircle.setLayoutX(25);
+		settlementCircle.setLayoutY(47);
+		settlementCircle.setOpacity(0.3);
+		Text settlementText = new Text ("0");
+		settlementText.setLayoutX(25);
+		settlementText.setLayoutY(47);
+		settlementText.setFont(new Font("Cambria", 20));
+		settlementText.setFill(Color.WHITE);
+		StackPane settlementStack = new StackPane();
+		settlementStack.getChildren().addAll(settlementView, settlementCircle, settlementText);
+		//settlementStack.setPrefSize(90, 135);
+		settlementStack.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				settlementCircle.setOpacity(0.8);
+			}
+		});
+		settlementStack.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				settlementCircle.setOpacity(0.3);
+			}
+		});
 		settlement = new VBox();
 		settlement.setSpacing(20);
-		settlement.getChildren().addAll(settlementView, settlementLabel, settlementNumber);
+		settlement.getChildren().addAll(settlementStack, settlementLabel);
 		
 		ImageView roadView = new ImageView(new Image("road_view.png"));
 		roadView.setFitWidth(65);
@@ -81,108 +107,233 @@ public class PlayerPane extends Pane {
 		Label roadLabel = new Label("road");
 		roadLabel.setFont(new Font("Cambria", 20));
 		roadLabel.setTextFill(Color.WHITE);
-		Label roadNumber = new Label("");
+		
+		Circle roadCircle = new Circle();
+		roadCircle.setRadius(20);
+		roadCircle.setLayoutX(25);
+		roadCircle.setLayoutY(47);
+		roadCircle.setOpacity(0.3);
+		Text roadText = new Text ("0");
+		roadText.setLayoutX(25);
+		roadText.setLayoutY(47);
+		roadText.setFont(new Font("Cambria", 20));
+		roadText.setFill(Color.WHITE);
+		StackPane roadStack = new StackPane();
+		roadStack.getChildren().addAll(roadView, roadCircle, roadText);
+		//roadStack.setPrefSize(90, 135);
+		roadStack.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				roadCircle.setOpacity(0.8);
+			}
+		});
+		roadStack.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				roadCircle.setOpacity(0.3);
+			}
+		});
+		
 		road = new VBox();
 		road.setSpacing(20);
-		road.getChildren().addAll(roadView, roadLabel, roadNumber);
+		road.getChildren().addAll(roadStack, roadLabel);
 		
-		ImageView cityView = new ImageView(new Image("road_view.png"));
+		ImageView cityView = new ImageView(new Image("city_view.jpg"));
 		cityView.setFitWidth(65);
 		cityView.setFitHeight(65);
 		Label cityLabel = new Label("city");
 		cityLabel.setFont(new Font("Cambria", 20));
 		cityLabel.setTextFill(Color.WHITE);
-		Label cityNumber = new Label("");
+		Circle cityCircle = new Circle();
+		cityCircle.setRadius(20);
+		cityCircle.setLayoutX(25);
+		cityCircle.setLayoutY(47);
+		cityCircle.setOpacity(0.3);
+		Text cityText = new Text ("0");
+		cityText.setLayoutX(25);
+		cityText.setLayoutY(47);
+		cityText.setFont(new Font("Cambria", 20));
+		cityText.setFill(Color.WHITE);
+		StackPane cityStack = new StackPane();
+		cityStack.getChildren().addAll(cityView, cityCircle, cityText);
+		//cityStack.setPrefSize(90, 135);
+		cityStack.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				cityCircle.setOpacity(0.8);
+			}
+		});
+		cityStack.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				cityCircle.setOpacity(0.3);
+			}
+		});
 		city = new VBox();
 		city.setSpacing(20);
-		city.getChildren().addAll(cityView, cityLabel, cityNumber);
+		city.getChildren().addAll(cityStack, cityLabel);
+		
+		
+		
 		
 		placables = new HBox();
-		placables.setSpacing(60);
-		placables.setTranslateX(100);
+		placables.setSpacing(30);
+		placables.setTranslateY(20);
 		placables.getChildren().addAll(settlement, road, city);
 		
-		placables.setTranslateY(20);
+		if (Program.MODE == "pirates") {
+			ImageView pirateView = new ImageView(new Image("pirate_ship.png"));
+			pirateView.setFitWidth(65);
+			pirateView.setFitHeight(65);
+			Label pirateLabel = new Label("pirate");
+			pirateLabel.setFont(new Font("Cambria", 20));
+			pirateLabel.setTextFill(Color.WHITE);
+			Circle pirateCircle = new Circle();
+			pirateCircle.setRadius(20);
+			pirateCircle.setLayoutX(25);
+			pirateCircle.setLayoutY(47);
+			pirateCircle.setOpacity(0.3);
+			Text pirateText = new Text ("0");
+			pirateText.setLayoutX(25);
+			pirateText.setLayoutY(47);
+			pirateText.setFont(new Font("Cambria", 20));
+			pirateText.setFill(Color.WHITE);
+			StackPane pirateStack = new StackPane();
+			pirateStack.getChildren().addAll(pirateView, pirateCircle, pirateText);
+			//cityStack.setPrefSize(90, 135);
+			pirateStack.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					pirateCircle.setOpacity(0.8);
+				}
+			});
+			pirateStack.setOnMouseExited(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					pirateCircle.setOpacity(0.3);
+				}
+			});
+			VBox pirate = new VBox();
+			pirate.setSpacing(20);
+			pirate.getChildren().addAll(pirateStack, pirateLabel); 
+			placables.getChildren().add(pirate);
+		}
 		
 		HBox other = new HBox();
+		other.setSpacing(30);
 		other.getChildren().addAll(closeButton, placables);
 		
 		resourceCards = new HBox();
 		resourceCards.setSpacing(23);
-		VBox newCard;
+		//VBox newCard;
 		ImageView cardImage;
-		Label cardType;
-		Label cardNumber;
+		//Label cardNumber;
+		
 		for (int i = 0 ; i < 5 ; i++) {
-			newCard = new VBox();
-			cardType = new Label();
-			cardNumber = new Label("0");
+			//newCard = new VBox();
+			//cardNumber = new Label("0");
 			if (i == 0) {
 				cardImage = new ImageView(new Image("sheep_card.jpg"));
-				cardType.setText("Wool");
-				
 			} else if (i == 1) {
 				cardImage = new ImageView(new Image("lumber_card.jpg"));
-				cardType.setText("Lumber");
 			} else if (i == 2) {
 				cardImage = new ImageView(new Image("brick_card.jpg"));
-				cardType.setText("Brick");
 			} else if (i == 3) {
 				cardImage = new ImageView(new Image("wheat_card.jpg"));
-				cardType.setText("Grain");
 			} else {
 				cardImage = new ImageView(new Image("ore_card.jpg"));
-				cardType.setText("Ore");
 			}
-			cardType.setTextFill(Color.WHITE);
-			cardNumber.setTextFill(Color.WHITE);
-			cardType.setFont(new Font("Cambria", 20));
-			cardNumber.setFont(new Font("Cambria", 20));
 			cardImage.setFitWidth(90);
 			cardImage.setFitHeight(135);
-			newCard.getChildren().addAll(cardImage, cardType, cardNumber);
-			resourceCards.getChildren().add(newCard);
+			Circle circle = new Circle();
+			circle.setRadius(20);
+			Text text = new Text("0");
+			circle.setLayoutX(25);
+			circle.setLayoutY(47);
+			circle.setOpacity(0.3);
+			
+			text.setLayoutX(25);
+			text.setLayoutY(47);
+			text.setFont(new Font("Cambria", 20));
+			text.setFill(Color.WHITE);
+			StackPane stack = new StackPane();
+			stack.setPrefSize(90, 135);
+			stack.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					circle.setOpacity(0.8);
+				}
+			});
+			stack.setOnMouseExited(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					circle.setOpacity(0.3);
+				}
+			});
+			stack.getChildren().addAll(cardImage, circle, text);
+			
+			//cardNumber.setTextFill(Color.WHITE);
+			//cardNumber.setFont(new Font("Cambria", 20));
+			
+			//newCard.getChildren().addAll(cardImage, stack);
+			resourceCards.getChildren().add(stack);
 		}
 
 		developmentCards = new HBox();
 		developmentCards.setSpacing(23);
-		VBox newCard2;
+		//VBox newCard2;
 		ImageView cardImage2;
-		Label cardType2;
-		Label cardNumber2;
+		//Label cardNumber2;
 		for (int i = 0 ; i < 5 ; i++) {
-			newCard2 = new VBox();
-			cardType2 = new Label();
-			cardNumber2 = new Label("0");
+			//newCard2 = new VBox();
+			//cardNumber2 = new Label("0");
 			if (i == 0) {
 				cardImage2 = new ImageView(new Image("dev1.jpg"));
-				cardType2.setText("Knight");
 			} else if (i == 1) {
 				cardImage2 = new ImageView(new Image("dev2.jpg"));
-				cardType2.setText("Victory\nPoint");
 			} else if (i == 2) {
 				cardImage2 = new ImageView(new Image("dev3.jpg"));
-				cardType2.setText("Road\nBuilding");
 			} else if (i == 3) {
 				cardImage2 = new ImageView(new Image("dev4.jpg"));
-				cardType2.setText("Year Of\nPlenty");
 			} else {
 				cardImage2 = new ImageView(new Image("dev5.jpg"));
-				cardType2.setText("Monopoly");
 			}
-			cardType2.setTextFill(Color.WHITE);
-			cardNumber2.setTextFill(Color.WHITE);
-			cardType2.setFont(new Font("Cambria", 20));
-			cardNumber2.setFont(new Font("Cambria", 20));
 			cardImage2.setFitWidth(90);
 			cardImage2.setFitHeight(135);
-			newCard2.getChildren().addAll(cardImage2, cardType2, cardNumber2);
-			developmentCards.getChildren().add(newCard2);
+			Circle circle = new Circle();
+			circle.setRadius(20);
+			Text text = new Text("0");
+			circle.setLayoutX(25);
+			circle.setLayoutY(47);
+			circle.setOpacity(0.3);
+			
+			text.setLayoutX(25);
+			text.setLayoutY(47);
+			text.setFont(new Font("Cambria", 20));
+			text.setFill(Color.WHITE);
+			StackPane stack = new StackPane();
+			stack.setPrefSize(90, 135);
+			stack.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					circle.setOpacity(0.8);
+				}
+			});
+			stack.setOnMouseExited(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					circle.setOpacity(0.3);
+				}
+			});
+			stack.getChildren().addAll(cardImage2, circle, text);
+			developmentCards.getChildren().add(stack);
 		}
+		
+		
 		
 		cardsOnTable = new HBox();
 		cardsOnTable.setSpacing(23);
-		VBox newCard3;
+		/*VBox newCard3;
 		ImageView cardImage3;
 		Label cardType3;
 		Label cardNumber3;
@@ -215,27 +366,69 @@ public class PlayerPane extends Pane {
 			cardImage3.setFitHeight(135);
 			newCard3.getChildren().addAll(cardImage3, cardType3, cardNumber3);
 			cardsOnTable.getChildren().add(newCard3);
-		}
+		}*/
 		
 		cards = new VBox();
-		cards.getChildren().addAll(resourceCards, developmentCards,cardsOnTable);
+		cards.setSpacing(50);
+		cards.getChildren().addAll(resourceCards, developmentCards );
 		
-		ImageView cardBack = new ImageView(new Image("back_view.jpg"));
-		cardBack.setFitWidth(115);
-		cardBack.setFitHeight(145);
-		Label totalNumber = new Label("");
+		ImageView cardBack = new ImageView(new Image("back_view.png"));
+		//Label totalNumber = new Label("");
+		Label totalLabel = new Label("Total Number of Cards of ");
+		totalLabel.setTextFill(Color.WHITE);
+		totalLabel.setFont(new Font("Cambria", 20));
+		cardBack.setFitWidth(90);
+		cardBack.setFitHeight(135);
+		Circle totalCircle = new Circle();
+		totalCircle.setRadius(20);
+		Text totalText = new Text("0");
+		totalCircle.setLayoutX(25);
+		totalCircle.setLayoutY(47);
+		totalCircle.setOpacity(0.3);
+		
+		totalText.setLayoutX(25);
+		totalText.setLayoutY(47);
+		totalText.setFont(new Font("Cambria", 20));
+		totalText.setFill(Color.WHITE);
+		StackPane totalStack = new StackPane();
+		totalStack.setPrefSize(90, 135);
+		totalStack.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				totalCircle.setOpacity(0.8);
+			}
+		});
+		totalStack.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				totalCircle.setOpacity(0.3);
+			}
+		});
+		totalStack.getChildren().addAll(cardBack, totalCircle, totalText);
+		totalStack.setTranslateX(20);
+		
 		totalCards = new VBox();
+		totalCards.getChildren().addAll(totalLabel, totalStack);
+		totalCards.setSpacing(10);
+		totalCards.setTranslateX(150);
+		totalCards.setTranslateY(20);
 		
-		totalCards.getChildren().addAll(cardBack, totalNumber);
-		
-		Group changables = new Group();
+		Pane changables = new Pane();
+		changables.setStyle("-fx-background-color: rgba(0,0,0,0);");
 		changables.getChildren().addAll(cards, totalCards);
 		changables.setTranslateX(50);
 		
+		tradeButton = new SettlersButton("Trade with ", 300, "-fx-background-color: rgba(225, 225, 225, 0.55);", "-fx-background-color: rgba(225, 225, 225, 0.8);");
+		tradeButton.setTranslateX(170);
+		tradeButton.setPrefSize(300, 30);
+		
+		Pane changableButtons = new Pane();
+		changableButtons.setStyle("-fx-background-color: rgba(0,0,0,0);");
+		changableButtons.getChildren().addAll(buttonsV, tradeButton);
+		
 		all = new VBox();
 		all.setSpacing(50);
-		all.getChildren().addAll(other, changables, buttonsV);
-		
+		all.getChildren().addAll(other, changables,  cardsOnTable, changableButtons);
 		
 		setContentVisible(false);
 		
@@ -274,8 +467,10 @@ public class PlayerPane extends Pane {
 	
 	public void setContentVisible(boolean flag) {
 		buttonsV.setVisible(flag);
+		tradeButton.setVisible(!flag);
 		totalCards.setVisible(!flag);
 		cards.setVisible(flag);
+		
 		/*cityButton.setVisible(true);
 		roadButton.setVisible(true);
 		settlementButton.setVisible(true);
@@ -286,7 +481,7 @@ public class PlayerPane extends Pane {
 	
 	public void addResourceCard(String type) {
 		int i;
-		boolean found = false;
+		//boolean found = false;
 		for (i = 0 ; i < resourceCards.getChildren().size(); i++) {
 			VBox cardi = (VBox) resourceCards.getChildren().get(i);
 			Label labeli = (Label) cardi.getChildren().get(1);
